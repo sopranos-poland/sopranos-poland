@@ -1,0 +1,307 @@
+:root{
+  --text: #ffe2bf;
+}
+
+*{ box-sizing:border-box; }
+body{
+  margin:0;
+  background:#000;
+  color:var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.is-hidden{ display:none; }
+
+/* ================= LOADER ================= */
+.loader{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: radial-gradient(circle at center, #1a0f0a 0%, #000 70%);
+  z-index:9999;
+}
+.loader-inner{ width:min(520px,92vw); text-align:center; }
+.loader-logo{
+  width:240px; max-width:70vw; display:block; margin:0 auto 18px;
+  filter: drop-shadow(0 0 18px rgba(255,140,0,.35));
+}
+.loader-title{
+  font-weight:900; letter-spacing:2.2px; margin-bottom:16px;
+  text-transform:uppercase;
+  text-shadow: 0 0 22px rgba(255,140,0,.25);
+}
+.progress-wrap{
+  height:10px; border-radius:999px; overflow:hidden;
+  background: rgba(255,255,255,.12);
+  border:1px solid rgba(255,160,60,.18);
+}
+.progress-bar{
+  height:100%; width:0%;
+  border-radius:999px;
+  background: linear-gradient(90deg, #ff4d00, #ffb000);
+  box-shadow: 0 0 18px rgba(255,165,0,.35);
+  transition: width .06s linear;
+}
+.progress-text{ margin-top:10px; font-weight:800; opacity:.9; }
+
+/* ================= MAIN ================= */
+.app{
+  min-height:100vh;
+  position:relative;
+  background: url("img/background.jpg") center/cover no-repeat;
+  overflow:hidden;
+}
+
+/* ПАРАЛЛАКС */
+.scene{
+  position:absolute;
+  inset:0;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0) scale(1.02);
+  will-change: transform;
+  transition: transform .08s ease-out;
+}
+
+/* затемнение по краям */
+.vignette{
+  position:absolute; inset:-40px;
+  background: radial-gradient(circle at 50% 45%,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.35) 55%,
+    rgba(0,0,0,.72) 100%);
+  pointer-events:none;
+}
+
+/* ================= MENU (NAVALIT-like) ================= */
+.menu-wrap{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:110px;
+  width:min(860px,92vw);
+
+  padding:10px;
+  border-radius:18px;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15));
+  border:1px solid rgba(255,160,60,.20);
+  box-shadow: 0 0 28px rgba(255,120,0,.12), inset 0 0 18px rgba(255,120,0,.08);
+  backdrop-filter: blur(8px);
+  z-index: 20;
+}
+.menu{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  align-items:center;
+}
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  flex:1;
+  min-width:150px;
+  padding:14px 16px;
+
+  text-decoration:none;
+  color:var(--text);
+  font-weight:800;
+  border-radius:14px;
+
+  border:1px solid rgba(255,160,60,.45);
+  background: linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.20));
+  box-shadow: 0 0 18px rgba(255,120,0,.12), inset 0 0 14px rgba(255,120,0,.06);
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.btn:hover{
+  border-color: rgba(255,190,90,.75);
+  box-shadow: 0 0 34px rgba(255,120,0,.20), inset 0 0 18px rgba(255,120,0,.10);
+  transform: translateY(-1px);
+}
+.btn:active{ transform: translateY(1px); }
+.ico{ font-size:18px; filter: drop-shadow(0 0 8px rgba(255,140,0,.25)); }
+.txt{ white-space:nowrap; }
+
+@media (max-width:720px){
+  .menu{ flex-wrap:wrap; }
+  .btn{ flex:1 1 45%; min-width:140px; }
+  .menu-wrap{ bottom:42px; }
+}
+
+/* ================= SMOKE (общий) ================= */
+.smoke-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:8; }
+.smoke{
+  position:absolute;
+  bottom:-260px;
+  left:-25%;
+  width:720px; height:720px;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,.20) 0%,
+    rgba(255,255,255,.10) 24%,
+    rgba(255,255,255,.06) 44%,
+    rgba(255,255,255,0) 72%);
+  filter: blur(12px);
+  opacity:.40;
+  animation: smokeMove 12s linear infinite;
+}
+.s2{ left:10%; width:880px; height:880px; opacity:.26; animation-duration:16s; animation-delay:-3s; }
+.s3{ left:45%; width:820px; height:820px; opacity:.22; animation-duration:19s; animation-delay:-7s; }
+.s4{ left:70%; width:760px; height:760px; opacity:.20; animation-duration:22s; animation-delay:-11s; }
+
+@keyframes smokeMove{
+  0%{ transform: translateX(0) translateY(0) scale(1) rotate(0deg); opacity:0; }
+  10%{ opacity:.38; }
+  60%{ opacity:.28; }
+  100%{ transform: translateX(620px) translateY(-1050px) scale(1.55) rotate(16deg); opacity:0; }
+}
+
+/* ================= EMBERS (искры) ================= */
+.embers{ position:absolute; inset:0; pointer-events:none; z-index:9; }
+.ember{
+  position:absolute;
+  width:4px; height:4px; border-radius:50%;
+  background: radial-gradient(circle, rgba(255,220,120,1), rgba(255,120,0,0));
+  filter: blur(.2px);
+  opacity:0;
+  animation: emberUp 6s linear infinite;
+}
+.e1{ left:10%; bottom:8%;  animation-delay:-0.5s; }
+.e2{ left:22%; bottom:12%; animation-delay:-2.2s; }
+.e3{ left:35%; bottom:7%;  animation-delay:-3.4s; }
+.e4{ left:48%; bottom:10%; animation-delay:-1.6s; }
+.e5{ left:62%; bottom:9%;  animation-delay:-4.1s; }
+.e6{ left:75%; bottom:14%; animation-delay:-2.9s; }
+.e7{ left:86%; bottom:8%;  animation-delay:-5.2s; }
+.e8{ left:92%; bottom:11%; animation-delay:-3.9s; }
+
+@keyframes emberUp{
+  0%{ transform: translateY(0) scale(.8); opacity:0; }
+  10%{ opacity:.8; }
+  60%{ opacity:.35; }
+  100%{ transform: translateY(-420px) translateX(60px) scale(1.2); opacity:0; }
+}
+
+/* ================= CIGAR GLOW (Сдвинуто ближе к сигаре) ================= */
+/* Если надо ещё точнее — двигай на 0.2–0.4% */
+.cigar-glow{
+  position:absolute;
+  left: 41.8%;
+  top: 41.2%;
+  width:9px; height:9px;
+  border-radius:50%;
+  background: radial-gradient(circle,
+    rgba(255,210,110,1) 0%,
+    rgba(255,90,0,.95) 35%,
+    rgba(255,80,0,0) 75%);
+  box-shadow: 0 0 16px rgba(255,120,0,.65);
+  opacity:.85;
+  animation: emberPulse 1.15s ease-in-out infinite;
+  pointer-events:none;
+  z-index: 12;
+}
+@keyframes emberPulse{
+  0%,100%{ transform: scale(1); opacity:.65; }
+  50%{ transform: scale(1.7); opacity:1; }
+}
+.cigar-smoke{
+  position:absolute;
+  left: 41.6%;
+  top: 40.0%;
+  width:140px; height:140px;
+  background: radial-gradient(circle at 20% 70%,
+    rgba(255,255,255,.22) 0%,
+    rgba(255,255,255,.10) 32%,
+    rgba(255,255,255,0) 72%);
+  filter: blur(10px);
+  opacity:.35;
+  animation: cigarSmoke 2.8s linear infinite;
+  pointer-events:none;
+  z-index: 12;
+}
+@keyframes cigarSmoke{
+  0%{ transform: translate(0,0) scale(.9); opacity:.35; }
+  100%{ transform: translate(70px,-150px) scale(1.35); opacity:0; }
+}
+
+/* ================= MONEY RAIN (контейнер + элементы создаёт JS) ================= */
+.money-rain{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index: 15;
+}
+.bill{
+  position:absolute;
+  top:-80px;
+  font-size: 22px;
+  opacity:.75;
+  filter: drop-shadow(0 0 10px rgba(255,140,0,.10));
+  animation: fall linear forwards;
+  will-change: transform, opacity;
+}
+@keyframes fall{
+  to{
+    transform: translateY(120vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* более “живой” неон и движение панели */
+.menu-wrap{
+  animation: panelBreath 3.2s ease-in-out infinite;
+  position: absolute;
+}
+
+@keyframes panelBreath{
+  0%,100%{
+    box-shadow: 0 0 28px rgba(255,120,0,.14), inset 0 0 18px rgba(255,120,0,.10);
+    transform: translateX(-50%) translateY(0);
+  }
+  50%{
+    box-shadow: 0 0 46px rgba(255,120,0,.24), inset 0 0 24px rgba(255,120,0,.14);
+    transform: translateX(-50%) translateY(-2px);
+  }
+}
+
+/* бегущая подсветка по рамке панели */
+.menu-wrap::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: 20px;
+  background: linear-gradient(90deg,
+    rgba(255,80,0,0),
+    rgba(255,170,60,.55),
+    rgba(255,80,0,0)
+  );
+  filter: blur(6px);
+  opacity:.55;
+  animation: neonSweep 2.4s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes neonSweep{
+  0%{ transform: translateX(-40%); opacity:.25; }
+  50%{ opacity:.65; }
+  100%{ transform: translateX(40%); opacity:.25; }
+}
+
+/* кнопки — более “стекло/неон” */
+.btn{
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 20% 20%, rgba(255,180,80,.18), rgba(0,0,0,0) 55%);
+  opacity:.0;
+  transition: opacity .15s ease;
+  pointer-events:none;
+}
+
+.btn:hover::after{ opacity: 1; }

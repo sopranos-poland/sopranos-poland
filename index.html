@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sopranos Poland</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <img class="loader-logo" src="img/logo.png" alt="Sopranos logo" />
+      <div class="loader-title">SOPRANOS POLAND</div>
+
+      <div class="progress-wrap">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div id="progressText" class="progress-text">0%</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main id="app" class="app is-hidden">
+    <div id="scene" class="scene">
+
+      <div class="vignette"></div>
+
+      <!-- общий дым по сцене -->
+      <div class="smoke-layer">
+        <span class="smoke s1"></span>
+        <span class="smoke s2"></span>
+        <span class="smoke s3"></span>
+        <span class="smoke s4"></span>
+      </div>
+
+      <!-- искры -->
+      <div class="embers">
+        <span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span>
+        <span class="ember e4"></span><span class="ember e5"></span><span class="ember e6"></span>
+        <span class="ember e7"></span><span class="ember e8"></span>
+      </div>
+
+      <!-- тление сигары -->
+      <div class="cigar-glow"></div>
+      <div class="cigar-smoke"></div>
+
+      <!-- дождь денег (создаётся в JS) -->
+      <div class="money-rain" id="moneyRain"></div>
+
+      <!-- меню -->
+      <div class="menu-wrap">
+        <div class="menu">
+          <a class="btn" href="https://t.me/+3URfmqkl4I80MTNk" target="_blank" rel="noopener">
+            <span class="ico">📣</span><span class="txt">Канал</span>
+          </a>
+          <a class="btn" href="https://t.me/sopranos_chat1" target="_blank" rel="noopener">
+            <span class="ico">💬</span><span class="txt">Чат</span>
+          </a>
+          <a class="btn" href="https://t.me/SopranosMarketBot" target="_blank" rel="noopener">
+            <span class="ico">🤖</span><span class="txt">Бот</span>
+          </a>
+          <a class="btn" href="https://t.me/baldez21" target="_blank" rel="noopener">
+            <span class="ico">🧑‍💻</span><span class="txt">Админ</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
